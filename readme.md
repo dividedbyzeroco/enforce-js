@@ -26,7 +26,7 @@ enforce`${{ variable }} as dataType, rule1, rule2, ...`;
 > NOTE: `enforce` uses double brackets as a shortcut to `{ variable: variable }`
 
 ## Regular Data Types
-`enforce` supports primitive and object javascript data types and, by default, are __non-nullable__. To explictly define a variable to be nullable, add the `optional` keyword.
+`enforce` supports primitive javascript data types, which by default, are __non-nullable__. To explictly define a variable to be nullable, use the `optional` keyword.
 
 > NOTE: Non-nullable in `enforce` means the value can either be `undefined` or the specified data type. It cannot be a javascript `null` object.
 
@@ -46,7 +46,7 @@ enforce`${{ variable }} as dataType, rule1, rule2, ...`;
 - 'any value'
 
 ## Rules
-Additional rules can help further validate a supplied variable. If the supplied rules may not be too specific to what is needed, the `and matches REGEXP` rule can fill the gap.
+Additional rules can help further validate a supplied variable. If the below rules do not meet the requirements of what may be needed, you may use the `and matches REGEXP` rule in order to fill the gap.
 
 - 'with `MIN` to `MAX` characters' (MIN: number, MAX: number)
 - 'with `MIN` or more characters' (MIN: number)
@@ -77,7 +77,7 @@ enforce`${{ dog }} as a ${ Dog }`; // error!
 
 ## Catching Errors
 
-By default, if a given parameter does not meet the rules provided, an `ValidationError` will be thrown with a message containing the definition. To better handle the error, an additional `name` parameter is also supplied to let you know which parameter was invalid.
+By default, if a given parameter does not meet the rules provided, a `ValidationError` will be thrown with a message containing the original definition. To better handle the error, an additional `name` parameter is also supplied to let you know which parameter was invalid.
 
 ```javascript
 const countingNumber = -1;
@@ -89,7 +89,7 @@ enforce`${{ countingNumber }} as a number, greater than or equal to 0`;
 // error.name: countingNumber
 ```
 
-The recommended approach is to have a try catch block that retrieves the invalid parameter.
+The recommended approach is to have a try-catch block that retrieves the invalid parameter.
 
 ```javascript
 import enforce, { ValidationError } from 'enforce-js';
