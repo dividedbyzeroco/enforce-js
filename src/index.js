@@ -87,6 +87,7 @@ export class ValidationError extends Error {
     }
 }
 
+// Define format error
 export class FormatError extends Error {
 
     name;
