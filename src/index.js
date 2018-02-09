@@ -80,7 +80,6 @@ const searchPartialExpressions = (name, value, rule) => {
 export class ValidationError extends Error {
 
     name;
-    
     constructor(message, name) {
         super(message);
         this.name = name;
@@ -91,7 +90,6 @@ export class ValidationError extends Error {
 export class FormatError extends Error {
 
     name;
-
     constructor(message, name) {
         super(message);
         this.name = name;
@@ -100,13 +98,13 @@ export class FormatError extends Error {
 
 // Fail validation
 const failValidation = (name, rules) => {
-    const message = String.raw`'${name}' must be ${rules.join(', ')}`;
+    const message = `'${name}' must be ${rules.join(', ')}`;
     throw new ValidationError(message, name);
 };
 
 // Fail format
 const failFormat = (name) => {
-    const message = String.raw`[EnforceJS] Format for parameter '${name}' is invalid`;
+    const message = `[EnforceJS] Format for parameter '${name}' is invalid`;
     throw new FormatError(message, name);
 };
 
@@ -124,7 +122,8 @@ export default (definition, ...params) => {
     // Check if definition uses a class
     if(definition.length === 3) {
         // Check if rule definition is correct
-        if(rules[0] !== 'a' && rules[0] !== 'an') failFormat(name, rules);
+        if(rules[0] !== 'a' && rules[0] !== 'an') 
+            failFormat(name, rules);
 
         // Get the static class supplied
         const staticClass = params[1];
