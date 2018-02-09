@@ -1,0 +1,42 @@
+{
+  "name": "enforce-js",
+  "version": "1.0.0",
+  "description": "Data enforcer syntax for verbose validations",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "node ./node_modules/babel-cli/bin/babel.js src -d dist",
+    "clean": "node ./node_modules/rimraf/bin dist",
+    "flow": "flow check",
+    "lint": "eslint src/**",
+    "lint:auto": "nodemon -w src/ --exec eslint src/**",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dividedbyzeroco/enforce-js.git"
+  },
+  "keywords": [
+    "enforce",
+    "validations"
+  ],
+  "bugs": {
+    "url": "https://github.com/dividedbyzeroco/enforce-js/issues"
+  },
+  "homepage": "https://github.com/dividedbyzeroco/enforce-js#readme",
+  "dependencies": {
+    "moment-timezone": "^0.5.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-shebang": "0.0.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.16.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "nodemon": "^1.10.0"
+  },
+  "author": "Jake Josol",
+  "license": "MIT"
+}
