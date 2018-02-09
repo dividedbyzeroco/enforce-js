@@ -2,7 +2,7 @@
 Enforcing data validations through readable definitions
 
 ## Introduction
-`enforce` is a data validation tool that allows you to asset rules on supplied variables and parameters, using a human-friendly format.
+`enforce` is a data validation tool that allows you to assert rules on supplied variables and parameters, using a human-friendly format.
 
 ## Getting Started
 To install `enforce`, run the following code in your npm project.
