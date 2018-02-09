@@ -7,7 +7,8 @@ const dataTypes = {
     Boolean: val => typeof val === typeof true,
     Array: val => typeof val === typeof [],
     Object: val => typeof val === typeof {},
-    Function: val => typeof val === typeof (() => {})
+    Function: val => typeof val === typeof (() => {}),
+    Class: (val, staticClass) => val instanceof staticClass
 };
 
 // Expressions
@@ -32,6 +33,14 @@ const partialExpressions = [
         const min = parseInt(rule.slice('with '.length - 1, rule.indexOf(' to')));
         const max = parseInt(rule.slice(rule.indexOf('to') + 'to '.length));
         return val.length >= min && val.length <= max;
+    }],
+    [/^with \d{1,} or more characters$/i, (val, rule) => {
+        const min = parseInt(rule.slice('with '.length - 1, rule.indexOf(' to')));
+        return val.length >= min;
+    }],
+    [/^with up to \d{1,} characters$/i, (val, rule) => {
+        const min = parseInt(rule.slice('with '.length - 1, rule.indexOf(' to')));
+        return val.length >= min;
     }],
     [/^greater than \d{1,}/i, (val, rule) => {
         const min = rule.slice(rule.lastIndexOf(' ') + 1);
@@ -59,7 +68,7 @@ const partialExpressions = [
 // Search partial expressions
 const searchPartialExpressions = (name, value, rule) => {
     for(let expression of Object.values({...partialExpressions})) {
-        if(rule.match(expression[0])) {
+        if(expression[0].test(rule)) {
             const checker = expression[1];
             return checker(value, rule);
         }
@@ -67,12 +76,37 @@ const searchPartialExpressions = (name, value, rule) => {
     return;
 };
 
+// Define validation error
+export class ValidationError extends Error {
+
+    name;
+    
+    constructor(message, name) {
+        super(message);
+        this.name = name;
+    }
+}
+
+export class FormatError extends Error {
+
+    name;
+
+    constructor(message, name) {
+        super(message);
+        this.name = name;
+    }
+}
+
+// Fail validation
 const failValidation = (name, rules) => {
-    throw new Error(String.raw`'${name}' must be ${rules.join(', ')}`);
+    const message = String.raw`'${name}' must be ${rules.join(', ')}`;
+    throw new ValidationError(message, name);
 };
 
-const failSyntax = (name) => {
-    throw new Error(String.raw`[EnforceJS] Syntax for parameter '${name}' is invalid`);
+// Fail format
+const failFormat = (name) => {
+    const message = String.raw`[EnforceJS] Format for parameter '${name}' is invalid`;
+    throw new FormatError(message, name);
 };
 
 export default (definition, ...params) => {
@@ -86,6 +120,16 @@ export default (definition, ...params) => {
         .split(',')
         .map(rule => rule.trim());
     
+    // Check if definition uses a special type
+    if(definition.length === 3) {
+        // Check if rule definition is correct
+        if(rules[0] !== 'a' && rules[0] !== 'an') failValidation(name, rules);
+
+        // Get the static class supplied
+        const staticClass = params[1];
+        return dataTypes.Class(value, staticClass);
+    }
+
     // Check data type
     const dataTypeChecker = expressions[rules[0]];
     if(!dataTypeChecker(value)) failValidation(name, rules);
@@ -99,7 +143,7 @@ export default (definition, ...params) => {
         let expression = expressions[rule];
         if(dataTypes.Void(expression)) {
             const partialExpression = searchPartialExpressions(name, value, rule);
-            if(dataTypes.Void(partialExpression)) failSyntax(name);
+            if(dataTypes.Void(partialExpression)) failFormat(name);
             if(partialExpression === false) failValidation(name, rules);
         }
     }
