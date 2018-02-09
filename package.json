@@ -1,6 +1,6 @@
 {
   "name": "enforce-js",
-  "version": "1.0.10-readme",
+  "version": "1.1.0",
   "description": "Data enforcer syntax for verbose validations",
   "main": "./dist/index.js",
   "scripts": {
