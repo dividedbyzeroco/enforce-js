@@ -64,7 +64,7 @@ const create = ({ username, name, password, age, options }) => {
     enforce`${{ name }} as a string`;
     enforce`${{ password }} as a string, with 6 to 8 characters`;
     enforce`${{ password }} as either a string or number, with 6 to 8 characters`;
-    enforce`${{ password }} as a password, with 6 to 8 characters, and matches /asfdjqeg/i}`;
+    enforce`${{ password }} as a password, with 6 to 8 characters, and matches /^\\d{6,8}$/i`;
     enforce`${{ age }} as a number, greater than 18`;
     enforce`${{ options }} as an object`;
 
