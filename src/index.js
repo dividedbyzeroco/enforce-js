@@ -120,10 +120,10 @@ export default (definition, ...params) => {
         .split(',')
         .map(rule => rule.trim());
     
-    // Check if definition uses a special type
+    // Check if definition uses a class
     if(definition.length === 3) {
         // Check if rule definition is correct
-        if(rules[0] !== 'a' && rules[0] !== 'an') failValidation(name, rules);
+        if(rules[0] !== 'a' && rules[0] !== 'an') failFormat(name, rules);
 
         // Get the static class supplied
         const staticClass = params[1];
