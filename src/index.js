@@ -50,7 +50,7 @@ const partialExpressions = [
         return val <= min;
     }],
     [/^(and )?matches \/.{1,}\/[i,g]$/i, (val, rule) => {
-        const regEx = rule.slice(rule.indexOf('/') + 1, '/*'.length);
+        const regEx = rule.slice(rule.indexOf('/') + 1, rule.length - '/*'.length);
         const regExScope = rule.slice(-1);
         return !dataTypes.Null(val.match(new RegExp(regEx, regExScope)));
     }]

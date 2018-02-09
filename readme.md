@@ -20,7 +20,7 @@ import enforce from 'enforce-js';
 
 ## Syntax
 
-To `enforce` validation on a parameter, simply follow the following syntax:
+To `enforce` validation on a parameter, simply follow the syntax below:
 
 ```javascript
 enforce`${{ PARAMETER }} as DATA_TYPE, RULE_1, RULE_2, ...`
