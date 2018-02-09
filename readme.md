@@ -65,14 +65,14 @@ Additional rules can help further validate a supplied variable. If the below rul
 class Animal { /* class definition */ }
 const dog = new Animal();
 
-enforce`${{ dog }} as an ${ Animal }`; // ok
+enforce`${{ dog }} as an ${{ Animal }}`; // ok
 
 class Dog extends Animal { /* class definition */ }
 const corgi = new Dog();
 
-enforce`${{ corgi }} as a ${ Dog }`; // ok
-enforce`${{ corgi }} as an ${ Animal }`; // ok
-enforce`${{ dog }} as a ${ Dog }`; // error!
+enforce`${{ corgi }} as a ${{ Dog }}`; // ok
+enforce`${{ corgi }} as an ${{ Animal }}`; // ok
+enforce`${{ dog }} as a ${{ Dog }}`; // error!
 ```
 
 ## Catching Errors
@@ -167,5 +167,5 @@ const result = register({
 class Post { /* class definition */ }
 const post = new Post();
 
-enforce`${{ post }} as a ${ Post }`; // ok
+enforce`${{ post }} as a ${{ Post }}`; // ok
 ```

@@ -122,13 +122,17 @@ export default (definition, ...params) => {
     // Check if definition uses a class
     if(definition.length === 3) {
         // Check if rule definition is correct
-        if(rules[0] !== 'a' && rules[0] !== 'an') 
+        if(rules[0] !== 'a' && rules[0] !== 'an' || params.length === 1) 
             failFormat(name, rules);
+        
+        // Define readable class rules
+        const classRules = [[rules[0], Object.keys(params[1])[0]].join(' ')];
 
         // Get the static class supplied
-        const staticClass = params[1];
-        if(!dataTypes.Class(value, staticClass)) 
-            return failValidation(name, rules);
+        const staticClass = Object.values(params[1])[0];
+        if(!dataTypes.Class(value, staticClass))
+            return failValidation(name, classRules);
+        return;
     }
 
     // Check data type
