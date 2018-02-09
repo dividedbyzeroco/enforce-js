@@ -127,7 +127,8 @@ export default (definition, ...params) => {
 
         // Get the static class supplied
         const staticClass = params[1];
-        return dataTypes.Class(value, staticClass);
+        if(!dataTypes.Class(value, staticClass)) 
+            return failValidation(name, rules);
     }
 
     // Check data type
