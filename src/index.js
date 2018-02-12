@@ -108,7 +108,7 @@ const failFormat = (name) => {
     throw new FormatError(message, name);
 };
 
-export default (definition, ...params) => {
+const enforce = (definition, ...params) => {
     // Get item to be checked
     const name = Object.keys(params[0])[0];
     const value = Object.values(params[0])[0];
@@ -137,6 +137,7 @@ export default (definition, ...params) => {
 
     // Check data type
     const dataTypeChecker = expressions[rules[0]];
+    if(dataTypes.Void(dataTypeChecker)) failFormat(name);
     if(!dataTypeChecker(value)) failValidation(name, rules);
 
     // Check if void
@@ -153,3 +154,9 @@ export default (definition, ...params) => {
         }
     }
 };
+
+enforce.extend = (rule, validator) => {
+    partialExpressions.push([rule, validator]);
+};
+
+export default enforce;

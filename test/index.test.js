@@ -20,6 +20,15 @@ class NotPost {
     // A definition of not post
 }
 
-let post = new NotPost();
+let post = new Post();
 
 enforce`${{ post }} as a ${{ Post }}`;
+
+// Extending enforce
+enforce.extend(/^is one$/i, val => {
+    return val === 1;
+});
+
+let check = 1;
+
+enforce`${{ check }} as a number, is one`;

@@ -23,6 +23,14 @@ To `enforce` validation on a variable, simply follow the syntax below.
 enforce`${{ variable }} as dataType, rule1, rule2, ...`;
 ```
 
+### Example
+
+```javascript
+// Validate a variable
+const message = 'Hello, world!';
+enforce`${{ message }} as a string, with 5 to 20 characters`; // ok
+```
+
 > NOTE: `enforce` uses double brackets as a shortcut to `{ variable: variable }`
 
 ## Regular Data Types
@@ -46,7 +54,7 @@ enforce`${{ variable }} as dataType, rule1, rule2, ...`;
 - 'any value'
 
 ## Rules
-Additional rules can help further validate a supplied variable. If the below rules do not meet the requirements of what may be needed, you may use the `and matches REGEXP` rule in order to fill the gap.
+Additional rules can help further validate a supplied variable. If the below rules do not meet the requirements of what may be needed, you may use the `and matches REGEXP` rule in order to fill the gap, or you can try [Extending Rules](#extending-rules).
 
 - 'with `MIN` to `MAX` characters' (MIN: number, MAX: number)
 - 'with `MIN` or more characters' (MIN: number)
@@ -119,6 +127,32 @@ catch(err) {
         console.error(`The error message was: ${err.message}, and the invalid parameter is: ${err.name}`);
     }
 }
+```
+
+## Extending Rules
+
+If you need additional rules currently not supported by `enforce`. You can extend the library by using the `.extend()` method. 
+
+```javascript
+enforce.extend(REGEXP, VALIDATOR);
+
+// REGEXP = Regular Expression matching the rule
+// VALIDATOR = Function that will check if the supplied value is valid
+```
+
+### Example
+
+```javascript
+// Extend a new rule
+enforce.extend(/^and is equal to \d{1,}$/i, (val, rule) => {
+    // e.g. rule == 'is equal to 5'
+    const number = parseInt(rule.slice(rule.lastIndexOf(' ')));
+    return val === number;
+});
+
+// Enforce the new rule
+const thisNumber = 5;
+enforce`${{ thisNumber }} as a number, and is equal to 5`;
 ```
 
 ## Examples
