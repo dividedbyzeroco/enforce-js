@@ -131,7 +131,7 @@ catch(err) {
 
 ## Extending Rules
 
-If you need additional rules currently not supported by `enforce`. You can extend the library by using the `.extend()` method. 
+If you need additional rules currently not supported by `enforce`, you can extend the library by using the `.extend()` method. 
 
 ```javascript
 enforce.extend(REGEXP, VALIDATOR);
