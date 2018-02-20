@@ -1,10 +1,14 @@
 const enforce = require('../dist').default;
 const ValidationError = require('../dist').ValidationError;
 
-let name = 'not okay';
+let name = 'okay';
+let carbonCopy = { primary: 'johndoe@email.com', secondary: 'janedoe@email.com' };
+let blindCarbonCopy = ['johndoe@email.com', 'janedoe@email.com'];
 
 try {
     enforce`${{ name }} as an optional string, with 4 to 12 characters, and matches /^okay$/i`;
+    enforce`${{ carbonCopy }} as an object`;
+    enforce`${{ blindCarbonCopy }} as an object`;
 }
 catch(err) {
     if(err instanceof ValidationError) {

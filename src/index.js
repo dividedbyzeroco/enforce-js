@@ -1,12 +1,12 @@
 // Basic Data Types
 const dataTypes = {
-    Void: val => typeof val == 'undefined',
+    Void: val => typeof val === 'undefined',
     Null: val => val === null,
     String: val => typeof val === typeof '',
     Number: val => typeof val === typeof 0,
     Boolean: val => typeof val === typeof true,
-    Array: val => typeof val === typeof [],
-    Object: val => typeof val === typeof {},
+    Array: val => val instanceof Array,
+    Object: val => typeof val === typeof {} && !(val instanceof Array),
     Function: val => typeof val === typeof (() => {}),
     Class: (val, staticClass) => val instanceof staticClass
 };
@@ -21,6 +21,8 @@ const expressions = {
     'a boolean': val => dataTypes.Boolean(val),
     'an optional array': val => dataTypes.Void(val) || dataTypes.Array(val),
     'an array': val => dataTypes.Array(val),
+    'an optional object': val => dataTypes.Void(val) || dataTypes.Object(val),
+    'an object': val => dataTypes.Object(val),
     'any value': () => true,
     'a value': val => !dataTypes.Void(val),
     'an optional function': val => dataTypes.Void(val) || dataTypes.Function(val),
