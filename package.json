@@ -4,11 +4,9 @@
   "description": "Data enforcer syntax for verbose validations",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "node ./node_modules/babel-cli/bin/babel.js src -d dist",
+    "build": "tsc",
     "clean": "node ./node_modules/rimraf/bin dist",
-    "flow": "flow check",
     "lint": "eslint src/**",
-    "lint:auto": "nodemon -w src/ --exec eslint src/**",
     "prepublish": "npm run clean && npm run build"
   },
   "repository": {
