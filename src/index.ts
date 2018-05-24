@@ -125,7 +125,7 @@ const enforce = (definition, ...params) => {
     if(definition.length === 3) {
         // Check if rule definition is correct
         if(rules[0] !== 'a' && rules[0] !== 'an' || params.length === 1) 
-            failFormat(name, rules);
+            failFormat(name);
         
         // Define readable class rules
         const classRules = [[rules[0], Object.keys(params[1])[0]].join(' ')];
@@ -157,7 +157,7 @@ const enforce = (definition, ...params) => {
     }
 };
 
-enforce.extend = (rule, validator) => {
+enforce['extend'] = (rule, validator) => {
     partialExpressions.push([rule, validator]);
 };
 
