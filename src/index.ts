@@ -157,7 +157,7 @@ const enforce = (definition, ...params) => {
     }
 };
 
-enforce['extend'] = (rule, validator) => {
+enforce.extend = (rule, validator) => {
     partialExpressions.push([rule, validator]);
 };
 
