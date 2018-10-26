@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tsc",
     "clean": "node ./node_modules/rimraf/bin dist",
-    "lint": "eslint src/**",
     "prepublish": "npm run clean && npm run build"
   },
   "repository": {

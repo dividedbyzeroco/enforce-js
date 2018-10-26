@@ -50,13 +50,13 @@ const partialExpressions = [
     }],
     [/^greater than or equal to \d{1,}/i, (val, rule) => {
         const min = rule.slice(rule.lastIndexOf(' ') + 1);
-        return val > min;
+        return val >= min;
     }],
     [/^less than \d{1,}/i, (val, rule) => {
         const max = rule.slice(rule.lastIndexOf(' ') + 1);
         return val < max;
     }],
-    [/^less than or equalt to \d{1,}/i, (val, rule) => {
+    [/^less than or equal to \d{1,}/i, (val, rule) => {
         const min = rule.slice(rule.lastIndexOf(' ') + 1);
         return val <= min;
     }],
